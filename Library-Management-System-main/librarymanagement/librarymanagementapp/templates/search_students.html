@@ -1,0 +1,433 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Students - LibraryHub
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .page-container {
+        padding: 30px;
+    }
+
+    .page-header {
+        margin-bottom: 25px;
+    }
+
+    .page-header h1 {
+        color: #1e3a8a;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-header p {
+        color: #64748b;
+        margin-bottom: 0;
+    }
+
+    .search-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+    }
+
+    .search-form {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .search-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 12px 15px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        outline: none;
+    }
+
+    .search-input:focus {
+        border-color: #1e3a8a;
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.10);
+    }
+
+    .search-btn {
+        background: #1e3a8a;
+        color: white;
+        border: none;
+        padding: 12px 22px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .search-btn:hover {
+        background: #172554;
+        color: white;
+    }
+
+    .back-btn {
+        text-decoration: none;
+    }
+
+    .result-count {
+        background: #eef2ff;
+        color: #1e3a8a;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    .modern-table {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
+    }
+
+    .modern-table table {
+        margin-bottom: 0;
+    }
+
+    .modern-table thead {
+        background: #1e3a8a;
+        color: white;
+    }
+
+    .modern-table th {
+        padding: 15px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .modern-table td {
+        padding: 14px 15px;
+        vertical-align: middle;
+    }
+
+    .modern-table tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    .student-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #e0e7ff;
+        color: #1e3a8a;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8px;
+        font-weight: bold;
+    }
+
+    .empty-state {
+        background: white;
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-state i {
+        font-size: 60px;
+        color: #94a3b8;
+    }
+
+    .empty-state h3 {
+        margin-top: 20px;
+        color: #334155;
+    }
+
+    .empty-state p {
+        color: #64748b;
+    }
+
+</style>
+
+
+<div class="page-container">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+            <div>
+
+                <h1>
+                    <i class="bi bi-search"></i>
+                    Search Students
+                </h1>
+
+                <p>
+                    Search registered students by username, contact, email or address.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'view_students' %}"
+                class="btn btn-secondary back-btn"
+            >
+
+                <i class="bi bi-arrow-left"></i>
+
+                Back to Students
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH BOX -->
+
+    <div class="search-card">
+
+        <form
+            method="GET"
+            action="{% url 'search_students' %}"
+            class="search-form"
+        >
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search|default:'' }}"
+                class="search-input"
+                placeholder="Search username, contact, email or address..."
+                autocomplete="off"
+            >
+
+            <button
+                type="submit"
+                class="search-btn"
+            >
+
+                <i class="bi bi-search"></i>
+
+                Search
+
+            </button>
+
+            <a
+                href="{% url 'search_students' %}"
+                class="btn btn-outline-secondary"
+                style="padding: 12px 20px; border-radius: 8px;"
+            >
+
+                Clear
+
+            </a>
+
+        </form>
+
+    </div>
+
+
+    <!-- RESULT COUNT -->
+
+    <div>
+
+        <span class="result-count">
+
+            <i class="bi bi-people"></i>
+
+            {% if search %}
+
+                Search Results:
+                {{ result_count }}
+
+            {% else %}
+
+                Total Students:
+                {{ student_count }}
+
+            {% endif %}
+
+        </span>
+
+    </div>
+
+
+    <!-- STUDENT RESULTS -->
+
+    {% if students %}
+
+    <div class="modern-table table-responsive">
+
+        <table class="table mb-0">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Username</th>
+
+                    <th>Contact</th>
+
+                    <th>Email</th>
+
+                    <th>Address</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for student in students %}
+
+                <tr>
+
+                    <!-- ID -->
+
+                    <td>
+
+                        <strong>
+                            {{ student.0 }}
+                        </strong>
+
+                    </td>
+
+
+                    <!-- USERNAME -->
+
+                    <td>
+
+                        <span class="student-avatar">
+
+                            {{ student.1|first|upper }}
+
+                        </span>
+
+                        <strong>
+                            {{ student.1 }}
+                        </strong>
+
+                    </td>
+
+
+                    <!-- CONTACT -->
+
+                    <td>
+
+                        {{ student.2|default:"-" }}
+
+                    </td>
+
+
+                    <!-- EMAIL -->
+
+                    <td>
+
+                        {{ student.3|default:"-" }}
+
+                    </td>
+
+
+                    <!-- ADDRESS -->
+
+                    <td>
+
+                        {{ student.4|default:"-" }}
+
+                    </td>
+
+
+                    <!-- REMOVE STUDENT -->
+
+                    <td>
+
+                        <form
+                            method="POST"
+                            action="{% url 'remove_student' %}"
+                            onsubmit="return confirm('Are you sure you want to remove this student?');"
+                        >
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="student_id"
+                                value="{{ student.0 }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger btn-sm"
+                            >
+
+                                <i class="bi bi-trash"></i>
+
+                                Remove
+
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% else %}
+
+    <!-- EMPTY RESULT -->
+
+    <div class="empty-state">
+
+        <i class="bi bi-person-x"></i>
+
+        {% if search %}
+
+            <h3>
+                No Students Found
+            </h3>
+
+            <p>
+                No student matched
+                "<strong>{{ search }}</strong>".
+            </p>
+
+        {% else %}
+
+            <h3>
+                No Students Available
+            </h3>
+
+            <p>
+                There are no registered students in the system.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

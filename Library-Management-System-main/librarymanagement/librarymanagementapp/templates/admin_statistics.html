@@ -1,0 +1,584 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Statistics - Library Management System
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+    .statistics-container {
+        width: 100%;
+    }
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    .page-header {
+        background: white;
+
+        padding: 30px;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.08);
+
+        margin-bottom: 30px;
+    }
+
+
+    .page-header h1 {
+        margin: 0 0 10px 0;
+
+        color: #1e3a8a;
+
+        font-size: 30px;
+    }
+
+
+    .page-header p {
+        margin: 0;
+
+        color: #666;
+
+        font-size: 16px;
+    }
+
+
+    /* =====================================================
+       STATISTICS GRID
+       ===================================================== */
+
+    .statistics-grid {
+        display: grid;
+
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+
+        gap: 25px;
+
+        margin-bottom: 30px;
+    }
+
+
+    .statistics-card {
+        background: white;
+
+        padding: 28px;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.08);
+
+        text-align: center;
+
+        transition: transform 0.2s;
+    }
+
+
+    .statistics-card:hover {
+        transform: translateY(-4px);
+    }
+
+
+    .statistics-icon {
+        font-size: 45px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .statistics-number {
+        font-size: 34px;
+
+        font-weight: bold;
+
+        color: #1e3a8a;
+
+        margin-bottom: 8px;
+    }
+
+
+    .statistics-title {
+        color: #666;
+
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       DETAILS SECTION
+       ===================================================== */
+
+    .details-section {
+        background: white;
+
+        padding: 30px;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.08);
+
+        margin-bottom: 30px;
+    }
+
+
+    .details-section h2 {
+        margin-top: 0;
+
+        color: #1e3a8a;
+
+        margin-bottom: 20px;
+    }
+
+
+    .statistics-table {
+        width: 100%;
+
+        border-collapse: collapse;
+    }
+
+
+    .statistics-table th,
+    .statistics-table td {
+        padding: 14px;
+
+        border-bottom: 1px solid #e5e7eb;
+
+        text-align: left;
+    }
+
+
+    .statistics-table th {
+        background: #eff6ff;
+
+        color: #1e3a8a;
+
+        font-weight: bold;
+    }
+
+
+    .statistics-table td {
+        color: #555;
+    }
+
+
+    .statistics-table tr:last-child td {
+        border-bottom: none;
+    }
+
+
+    /* =====================================================
+       QUICK ACTIONS
+       ===================================================== */
+
+    .quick-actions {
+        background: white;
+
+        padding: 30px;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.08);
+    }
+
+
+    .quick-actions h2 {
+        margin-top: 0;
+
+        color: #1e3a8a;
+
+        margin-bottom: 20px;
+    }
+
+
+    .action-grid {
+        display: grid;
+
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(200px, 1fr)
+            );
+
+        gap: 15px;
+    }
+
+
+    .action-button {
+        display: block;
+
+        padding: 15px;
+
+        background: #1e3a8a;
+
+        color: white;
+
+        text-decoration: none;
+
+        text-align: center;
+
+        border-radius: 8px;
+
+        font-weight: bold;
+
+        transition: background 0.2s;
+    }
+
+
+    .action-button:hover {
+        background: #162d6b;
+    }
+
+
+    .student-button {
+        background: #059669;
+    }
+
+
+    .student-button:hover {
+        background: #047857;
+    }
+
+
+    .book-button {
+        background: #7c3aed;
+    }
+
+
+    .book-button:hover {
+        background: #6d28d9;
+    }
+
+
+    .booking-button {
+        background: #ea580c;
+    }
+
+
+    .booking-button:hover {
+        background: #c2410c;
+    }
+
+
+    .logout-button {
+        background: #dc2626;
+    }
+
+
+    .logout-button:hover {
+        background: #b91c1c;
+    }
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
+    @media (max-width: 600px) {
+
+        .page-header {
+            padding: 22px;
+        }
+
+
+        .page-header h1 {
+            font-size: 24px;
+        }
+
+
+        .details-section {
+            padding: 20px;
+
+            overflow-x: auto;
+        }
+
+
+        .quick-actions {
+            padding: 22px;
+        }
+
+    }
+
+</style>
+
+
+<div class="statistics-container">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <div class="page-header">
+
+        <h1>
+            📊 Admin Statistics
+        </h1>
+
+        <p>
+            Overview of the Library Management System.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         STATISTICS CARDS
+         ===================================================== -->
+
+    <div class="statistics-grid">
+
+
+        <!-- TOTAL BOOK TITLES -->
+
+        <div class="statistics-card">
+
+            <div class="statistics-icon">
+                📚
+            </div>
+
+            <div class="statistics-number">
+                {{ total_book_titles }}
+            </div>
+
+            <div class="statistics-title">
+                Total Book Titles
+            </div>
+
+        </div>
+
+
+        <!-- AVAILABLE BOOK COPIES -->
+
+        <div class="statistics-card">
+
+            <div class="statistics-icon">
+                📖
+            </div>
+
+            <div class="statistics-number">
+                {{ available_books }}
+            </div>
+
+            <div class="statistics-title">
+                Available Book Copies
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL STUDENTS -->
+
+        <div class="statistics-card">
+
+            <div class="statistics-icon">
+                👨‍🎓
+            </div>
+
+            <div class="statistics-number">
+                {{ total_students }}
+            </div>
+
+            <div class="statistics-title">
+                Registered Students
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL BOOKINGS -->
+
+        <div class="statistics-card">
+
+            <div class="statistics-icon">
+                📅
+            </div>
+
+            <div class="statistics-number">
+                {{ total_bookings }}
+            </div>
+
+            <div class="statistics-title">
+                Total Bookings
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         DETAILS
+         ===================================================== -->
+
+    <div class="details-section">
+
+        <h2>
+            📈 Library Summary
+        </h2>
+
+
+        <table class="statistics-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Statistic
+                    </th>
+
+                    <th>
+                        Total
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+
+                    <td>
+                        Total Book Titles
+                    </td>
+
+                    <td>
+                        {{ total_book_titles }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Available Book Copies
+                    </td>
+
+                    <td>
+                        {{ available_books }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Registered Students
+                    </td>
+
+                    <td>
+                        {{ total_students }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Total Bookings
+                    </td>
+
+                    <td>
+                        {{ total_bookings }}
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- =====================================================
+         QUICK ACTIONS
+         ===================================================== -->
+
+    <div class="quick-actions">
+
+        <h2>
+            Quick Actions
+        </h2>
+
+
+        <div class="action-grid">
+
+
+            <a
+                href="{% url 'admin_home' %}"
+                class="action-button"
+            >
+                🏠 Admin Dashboard
+            </a>
+
+
+            <a
+                href="{% url 'view_books' %}"
+                class="action-button book-button"
+            >
+                📚 View Books
+            </a>
+
+
+            <a
+                href="{% url 'students' %}"
+                class="action-button student-button"
+            >
+                👨‍🎓 View Students
+            </a>
+
+
+            <a
+                href="{% url 'search_students' %}"
+                class="action-button student-button"
+            >
+                🔍 Search Students
+            </a>
+
+
+            <a
+                href="{% url 'view_bookings' %}"
+                class="action-button booking-button"
+            >
+                📅 View Bookings
+            </a>
+
+
+            <a
+                href="{% url 'logout' %}"
+                class="action-button logout-button"
+            >
+                🚪 Logout
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

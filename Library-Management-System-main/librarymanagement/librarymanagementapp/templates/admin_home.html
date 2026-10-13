@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Admin Dashboard | Library Management System
+    </title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f6f9;
+
+            min-height: 100vh;
+
+            color: #222;
+        }
+
+
+        /* =================================================
+           HEADER
+           ================================================= */
+
+        .header {
+
+            background:
+                #172033;
+
+            color: white;
+
+            padding:
+                18px 35px;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
+        }
+
+
+        .admin-user {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            font-size: 14px;
+        }
+
+
+        .logout {
+
+            background: #dc3545;
+
+            color: white;
+
+            padding:
+                9px 16px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .logout:hover {
+
+            background: #b02a37;
+        }
+
+
+        /* =================================================
+           CONTAINER
+           ================================================= */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1250px;
+
+            margin:
+                35px auto;
+        }
+
+
+        /* =================================================
+           WELCOME
+           ================================================= */
+
+        .welcome {
+
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 14px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.07);
+        }
+
+
+        .welcome h1 {
+
+            color: #172033;
+
+            margin-bottom: 8px;
+
+            font-size: 30px;
+        }
+
+
+        .welcome p {
+
+            color: #666;
+
+            font-size: 15px;
+        }
+
+
+        /* =================================================
+           STATISTICS
+           ================================================= */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(210px, 1fr)
+                );
+
+            gap: 22px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 14px;
+
+            text-align: center;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.07);
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .stat-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        .stat-icon {
+
+            font-size: 38px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .stat-number {
+
+            font-size: 32px;
+
+            font-weight: bold;
+
+            color: #172033;
+
+            margin-bottom: 7px;
+        }
+
+
+        .stat-title {
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================================
+           QUICK ACTIONS
+           ================================================= */
+
+        .actions {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.07);
+        }
+
+
+        .actions h2 {
+
+            color: #172033;
+
+            margin-bottom: 22px;
+        }
+
+
+        .action-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(190px, 1fr)
+                );
+
+            gap: 15px;
+        }
+
+
+        .action-button {
+
+            display: block;
+
+            padding: 16px;
+
+            text-align: center;
+
+            border-radius: 9px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .action-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            opacity: 0.92;
+        }
+
+
+        .blue {
+            background: #2563eb;
+        }
+
+
+        .green {
+            background: #059669;
+        }
+
+
+        .orange {
+            background: #ea580c;
+        }
+
+
+        .purple {
+            background: #7c3aed;
+        }
+
+
+        .red {
+            background: #dc3545;
+        }
+
+
+        .gold {
+            background: #d99000;
+        }
+
+
+        .dark {
+            background: #374151;
+        }
+
+
+        /* =================================================
+           FOOTER
+           ================================================= */
+
+        .footer {
+
+            text-align: center;
+
+            padding: 25px;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+
+        /* =================================================
+           MOBILE
+           ================================================= */
+
+        @media (max-width: 600px) {
+
+            .header {
+
+                padding:
+                    16px 20px;
+
+                flex-direction:
+                    column;
+
+                gap: 12px;
+
+            }
+
+
+            .container {
+
+                width: 94%;
+
+                margin-top: 25px;
+
+            }
+
+
+            .welcome {
+
+                padding: 22px;
+
+            }
+
+
+            .welcome h1 {
+
+                font-size: 24px;
+
+            }
+
+
+            .actions {
+
+                padding: 22px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header class="header">
+
+
+    <div class="logo">
+
+        📚 Library Management System
+
+    </div>
+
+
+    <div class="admin-user">
+
+        <span>
+
+            👤
+            {{ request.session.admin_username|default:"Administrator" }}
+
+        </span>
+
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+
+            Logout
+
+        </a>
+
+    </div>
+
+
+</header>
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+     ===================================================== -->
+
+<div class="container">
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+
+        <h1>
+
+            Welcome, Administrator! 👋
+
+        </h1>
+
+
+        <p>
+
+            Manage books, students, bookings
+            and library statistics from this dashboard.
+
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         STATISTICS
+         ================================================= -->
+
+    <div class="stats-grid">
+
+
+        <!-- BOOK TITLES -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                📚
+
+            </div>
+
+
+            <div class="stat-number">
+
+                {{ total_book_titles }}
+
+            </div>
+
+
+            <div class="stat-title">
+
+                Total Book Titles
+
+            </div>
+
+        </div>
+
+
+        <!-- AVAILABLE BOOKS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                📖
+
+            </div>
+
+
+            <div class="stat-number">
+
+                {{ available_books }}
+
+            </div>
+
+
+            <div class="stat-title">
+
+                Available Book Copies
+
+            </div>
+
+        </div>
+
+
+        <!-- STUDENTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                👨‍🎓
+
+            </div>
+
+
+            <div class="stat-number">
+
+                {{ total_students }}
+
+            </div>
+
+
+            <div class="stat-title">
+
+                Registered Students
+
+            </div>
+
+        </div>
+
+
+        <!-- BOOKINGS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                📅
+
+            </div>
+
+
+            <div class="stat-number">
+
+                {{ total_bookings }}
+
+            </div>
+
+
+            <div class="stat-title">
+
+                Total Bookings
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =================================================
+         QUICK ACTIONS
+         ================================================= -->
+
+    <div class="actions">
+
+
+        <h2>
+
+            ⚙️ Admin Quick Actions
+
+        </h2>
+
+
+        <div class="action-grid">
+
+
+            <!-- STATISTICS -->
+
+            <a
+                href="{% url 'admin_statistics' %}"
+                class="action-button gold"
+            >
+
+                📊 Admin Statistics
+
+            </a>
+
+
+            <!-- ADD BOOK -->
+
+            <a
+                href="{% url 'add_book' %}"
+                class="action-button blue"
+            >
+
+                ➕ Add Book
+
+            </a>
+
+
+            <!-- VIEW BOOKS -->
+
+            <a
+                href="{% url 'view_books' %}"
+                class="action-button green"
+            >
+
+                📚 View Books
+
+            </a>
+
+
+            <!-- REMOVE BOOK -->
+
+            <a
+                href="{% url 'remove_book' %}"
+                class="action-button red"
+            >
+
+                🗑️ Remove Book
+
+            </a>
+
+
+            <!-- STUDENTS -->
+
+            <a
+                href="{% url 'students' %}"
+                class="action-button purple"
+            >
+
+                👨‍🎓 View Students
+
+            </a>
+
+
+            <!-- SEARCH STUDENTS -->
+
+            <a
+                href="{% url 'search_students' %}"
+                class="action-button orange"
+            >
+
+                🔍 Search Students
+
+            </a>
+
+
+            <!-- REMOVE STUDENT -->
+
+            <a
+                href="{% url 'remove_student' %}"
+                class="action-button red"
+            >
+
+                🗑️ Remove Student
+
+            </a>
+
+
+            <!-- BOOKINGS -->
+
+            <a
+                href="{% url 'view_bookings' %}"
+                class="action-button dark"
+            >
+
+                📅 View Bookings
+
+            </a>
+
+
+            <!-- SEARCH BOOKS -->
+
+            <a
+                href="{% url 'search_books' %}"
+                class="action-button green"
+            >
+
+                🔎 Search Books
+
+            </a>
+
+
+            <!-- LOGOUT -->
+
+            <a
+                href="{% url 'logout' %}"
+                class="action-button red"
+            >
+
+                🚪 Logout
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<div class="footer">
+
+    Library Management System
+    &copy; 2026
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,422 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Notifications - Library Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-body">
+
+            <div class="d-flex
+                        justify-content-between
+                        align-items-center
+                        flex-wrap
+                        gap-3">
+
+                <div>
+
+                    <h1 class="text-primary mb-2">
+
+                        🔔 Admin Notifications
+
+                    </h1>
+
+                    <p class="text-muted mb-0">
+
+                        View student bookings, returns,
+                        cancellations, overdue books
+                        and fines.
+
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <span class="badge bg-primary fs-6">
+
+                        {{ notification_count }}
+                        Notifications
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         NOTIFICATIONS
+         ===================================================== -->
+
+    {% if notifications %}
+
+        {% for notification in notifications %}
+
+            <div class="card shadow-sm border-0 mb-3">
+
+                <div class="card-body">
+
+
+                    <!-- =================================================
+                         TITLE
+                         ================================================= -->
+
+                    <div class="d-flex
+                                justify-content-between
+                                align-items-center
+                                flex-wrap
+                                mb-3">
+
+                        <h4 class="mb-0">
+
+
+                            {% if notification.notification_type == "New Booking" %}
+
+                                <span class="text-primary">
+
+                                    📚 New Book Booking
+
+                                </span>
+
+
+                            {% elif notification.notification_type == "Overdue" %}
+
+                                <span class="text-danger">
+
+                                    ⚠️ Book Overdue
+
+                                </span>
+
+
+                            {% elif notification.notification_type == "Returned" %}
+
+                                <span class="text-success">
+
+                                    ↩️ Book Returned
+
+                                </span>
+
+
+                            {% elif notification.notification_type == "Cancelled" %}
+
+                                <span class="text-secondary">
+
+                                    ❌ Booking Cancelled
+
+                                </span>
+
+
+                            {% else %}
+
+                                🔔 Booking Notification
+
+                            {% endif %}
+
+
+                        </h4>
+
+
+                        <!-- Notification Badge -->
+
+                        {% if notification.notification_type == "New Booking" %}
+
+                            <span class="badge bg-primary">
+
+                                New Booking
+
+                            </span>
+
+
+                        {% elif notification.notification_type == "Overdue" %}
+
+                            <span class="badge bg-danger">
+
+                                Overdue
+
+                            </span>
+
+
+                        {% elif notification.notification_type == "Returned" %}
+
+                            <span class="badge bg-success">
+
+                                Returned
+
+                            </span>
+
+
+                        {% elif notification.notification_type == "Cancelled" %}
+
+                            <span class="badge bg-secondary">
+
+                                Cancelled
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =================================================
+                         INFORMATION
+                         ================================================= -->
+
+                    <div class="row g-3">
+
+
+                        <!-- STUDENT -->
+
+                        <div class="col-md-6 col-lg-3">
+
+                            <div class="bg-light
+                                        rounded
+                                        p-3">
+
+                                <small class="text-muted">
+
+                                    Student
+
+                                </small>
+
+                                <div class="fw-bold">
+
+                                    {{ notification.username }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BOOK -->
+
+                        <div class="col-md-6 col-lg-3">
+
+                            <div class="bg-light
+                                        rounded
+                                        p-3">
+
+                                <small class="text-muted">
+
+                                    Book
+
+                                </small>
+
+                                <div class="fw-bold">
+
+                                    {{ notification.book_name }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BOOKING DATE -->
+
+                        <div class="col-md-6 col-lg-3">
+
+                            <div class="bg-light
+                                        rounded
+                                        p-3">
+
+                                <small class="text-muted">
+
+                                    Booking Date
+
+                                </small>
+
+                                <div class="fw-bold">
+
+                                    {{ notification.booking_date }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DUE DATE -->
+
+                        <div class="col-md-6 col-lg-3">
+
+                            <div class="bg-light
+                                        rounded
+                                        p-3">
+
+                                <small class="text-muted">
+
+                                    Due Date
+
+                                </small>
+
+                                <div class="fw-bold">
+
+                                    {{ notification.due_date }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="col-md-6 col-lg-3">
+
+                            <div class="bg-light
+                                        rounded
+                                        p-3">
+
+                                <small class="text-muted">
+
+                                    Status
+
+                                </small>
+
+                                <div class="fw-bold">
+
+
+                                    {% if notification.notification_type == "New Booking" %}
+
+                                        <span class="text-primary">
+
+                                            📚 New Booking
+
+                                        </span>
+
+
+                                    {% elif notification.notification_type == "Overdue" %}
+
+                                        <span class="text-danger">
+
+                                            ⚠️ Overdue
+
+                                        </span>
+
+
+                                    {% elif notification.notification_type == "Returned" %}
+
+                                        <span class="text-success">
+
+                                            ↩️ Returned
+
+                                        </span>
+
+
+                                    {% elif notification.notification_type == "Cancelled" %}
+
+                                        <span class="text-secondary">
+
+                                            ❌ Cancelled
+
+                                        </span>
+
+
+                                    {% else %}
+
+                                        {{ notification.status }}
+
+                                    {% endif %}
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FINE -->
+
+                        <div class="col-md-6 col-lg-3">
+
+                            <div class="bg-light
+                                        rounded
+                                        p-3">
+
+                                <small class="text-muted">
+
+                                    Current Fine
+
+                                </small>
+
+                                <div class="fw-bold text-danger">
+
+                                    💰 ₹{{ notification.fine|floatformat:2 }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <!-- =====================================================
+             EMPTY
+             ===================================================== -->
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center py-5">
+
+                <div class="display-4 mb-3">
+
+                    🔔
+
+                </div>
+
+                <h3>
+
+                    No Notifications
+
+                </h3>
+
+                <p class="text-muted">
+
+                    There are currently no booking
+                    notifications.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

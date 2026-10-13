@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}
+Book Details - Library Management System
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .book-details {
+        max-width: 1000px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .book-grid {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 35px;
+    }
+
+    .cover {
+        width: 100%;
+        max-height: 350px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    h1 {
+        color: #1e3a8a;
+    }
+
+    .detail {
+        margin-bottom: 15px;
+    }
+
+    .label {
+        color: #64748b;
+        font-size: 14px;
+    }
+
+    .value {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .available {
+        color: #15803d;
+    }
+
+    .unavailable {
+        color: #dc2626;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 11px 18px;
+        background: #1e3a8a;
+        color: white;
+        border-radius: 7px;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+    @media(max-width:700px) {
+
+        .book-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+</style>
+
+
+<div class="book-details">
+
+    <div class="book-grid">
+
+
+        <div>
+
+            {% if book.6 %}
+
+                <img src="{{ book.6 }}"
+                     class="cover">
+
+            {% else %}
+
+                <div>
+                    📚 No Cover Available
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div>
+
+            <h1>
+                📖 {{ book.1 }}
+            </h1>
+
+
+            <div class="detail">
+
+                <div class="label">
+                    Author
+                </div>
+
+                <div class="value">
+                    {{ book.2 }}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="label">
+                    Category
+                </div>
+
+                <div class="value">
+                    {{ book.4 }}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="label">
+                    Available Copies
+                </div>
+
+                <div class="value">
+
+                    {% if book.3 > 0 %}
+
+                        <span class="available">
+                            {{ book.3 }} Available
+                        </span>
+
+                    {% else %}
+
+                        <span class="unavailable">
+                            Not Available
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="label">
+                    Description
+                </div>
+
+                <p>
+                    {{ book.5|default:"No description available." }}
+                </p>
+
+            </div>
+
+
+            {% if request.session.student_id and book.3 > 0 %}
+
+                <a href="{% url 'book_slot' %}"
+                   class="button">
+
+                    📅 Book This Book
+
+                </a>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

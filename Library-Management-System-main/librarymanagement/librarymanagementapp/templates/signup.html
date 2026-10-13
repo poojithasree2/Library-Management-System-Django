@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Library Management</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(5, 15, 30, 0.80),
+                    rgba(5, 15, 30, 0.84)
+                ),
+                url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .navbar {
+            min-height: 72px;
+
+            background: rgba(5,12,25,0.82);
+
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 15px 40px;
+        }
+
+        .brand {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 24px;
+
+            font-weight: bold;
+        }
+
+        .brand span {
+            color: #f5a400;
+        }
+
+        .nav-link {
+            color: white;
+
+            text-decoration: none;
+
+            margin-left: 25px;
+
+            font-size: 15px;
+        }
+
+        .nav-link:hover {
+            color: #f5a400;
+        }
+
+        .section {
+            min-height: calc(100vh - 72px);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 40px 20px;
+        }
+
+        .card {
+            width: 500px;
+
+            max-width: 100%;
+
+            background: rgba(255,255,255,0.97);
+
+            padding: 38px 42px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.45);
+        }
+
+        .icon {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background: #f5a400;
+
+            color: white;
+
+            border-radius: 50%;
+
+            font-size: 32px;
+        }
+
+        h1 {
+            text-align: center;
+
+            color: #172033;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+        .message {
+            text-align: center;
+
+            background: #ecfdf3;
+
+            color: #198754;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #252525;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+
+            height: 48px;
+
+            padding: 12px 15px;
+
+            border: 1px solid #d5d5d5;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #f5a400;
+
+            box-shadow:
+                0 0 0 3px rgba(245,164,0,0.15);
+        }
+
+        .btn {
+            width: 100%;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #f5a400;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #d98f00;
+        }
+
+        .links {
+            text-align: center;
+
+            margin-top: 22px;
+        }
+
+        .links a {
+            color: #d99000;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                flex-direction: column;
+
+                gap: 15px;
+
+                padding: 18px;
+            }
+
+            .nav-link {
+                margin: 5px 8px;
+            }
+
+            .card {
+                padding: 30px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="{% url 'index' %}" class="brand">
+        Library <span>Management</span>
+    </a>
+
+    <div>
+
+        <a href="{% url 'index' %}" class="nav-link">
+            Home
+        </a>
+
+        <a href="{% url 'login' %}" class="nav-link">
+            Login
+        </a>
+
+        <a href="{% url 'admin_login' %}" class="nav-link">
+            Admin
+        </a>
+
+    </div>
+
+</nav>
+
+
+<section class="section">
+
+    <div class="card">
+
+        <div class="icon">
+            👤
+        </div>
+
+        <h1>Create Account</h1>
+
+        <p class="subtitle">
+            Register as a library student
+        </p>
+
+
+        {% if msg %}
+
+            <div class="message">
+                {{ msg }}
+            </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="input-group">
+
+                <label>Username</label>
+
+                <input
+                    type="text"
+                    name="t1"
+                    placeholder="Enter username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    name="t2"
+                    placeholder="Enter password"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Contact</label>
+
+                <input
+                    type="text"
+                    name="t3"
+                    placeholder="Enter contact number"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    name="t4"
+                    placeholder="Enter email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Address</label>
+
+                <input
+                    type="text"
+                    name="t5"
+                    placeholder="Enter address"
+                    required
+                >
+
+            </div>
+
+
+            <input
+                type="submit"
+                value="Create Account"
+                class="btn"
+            >
+
+        </form>
+
+
+        <div class="links">
+
+            Already registered?
+
+            <a href="{% url 'login' %}">
+                Student Login
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+
+</html>

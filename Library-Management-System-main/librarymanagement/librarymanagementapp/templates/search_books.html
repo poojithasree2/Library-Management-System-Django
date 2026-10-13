@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Books - Library Management System
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .container {
+        width: 100%;
+    }
+
+    .header,
+    .search-area,
+    .results {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    h1 {
+        color: #1e3a8a;
+    }
+
+    .search-area input {
+        width: 75%;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 7px;
+    }
+
+    .search-area button {
+        padding: 12px 18px;
+        background: #1e3a8a;
+        color: white;
+        border: none;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+
+    .book {
+        padding: 18px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .book h2 {
+        margin: 0;
+        color: #1e3a8a;
+    }
+
+    .details {
+        color: #64748b;
+        margin-top: 7px;
+    }
+
+    .button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 13px;
+        background: #2563eb;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+    }
+
+</style>
+
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🔍 Search Books</h1>
+
+        <p>
+            Search by book name, author or category.
+        </p>
+
+    </div>
+
+
+    <div class="search-area">
+
+        <form method="GET">
+
+            <input type="text"
+                   name="search"
+                   value="{{ search }}"
+                   placeholder="Enter book name, author or category">
+
+            <button type="submit">
+                🔍 Search
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="results">
+
+        <h3>
+            Results: {{ result_count }}
+        </h3>
+
+
+        {% if books %}
+
+            {% for book in books %}
+
+                <div class="book">
+
+                    <h2>
+                        📖 {{ book.1 }}
+                    </h2>
+
+                    <div class="details">
+
+                        Author:
+                        <strong>{{ book.2 }}</strong>
+
+                        &nbsp; | &nbsp;
+
+                        Category:
+                        <strong>{{ book.4 }}</strong>
+
+                        &nbsp; | &nbsp;
+
+                        Available:
+                        <strong>{{ book.3 }}</strong>
+
+                    </div>
+
+
+                    {% if book.5 %}
+
+                        <p>
+                            {{ book.5 }}
+                        </p>
+
+                    {% endif %}
+
+
+                    <a href="{% url 'book_details' book.0 %}"
+                       class="button">
+
+                        📖 View Details
+
+                    </a>
+
+
+                    {% if request.session.admin_logged_in %}
+
+                        <a href="{% url 'edit_book' book.0 %}"
+                           class="button">
+
+                            ✏️ Edit
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No books found.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

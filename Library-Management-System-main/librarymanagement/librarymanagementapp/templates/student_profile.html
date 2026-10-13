@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}
+Student Profile - Library Management System
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .profile {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    h1 {
+        color: #1e3a8a;
+    }
+
+    .group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 7px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 11px;
+        border: 1px solid #cbd5e1;
+        border-radius: 7px;
+    }
+
+    textarea {
+        min-height: 100px;
+    }
+
+    button {
+        padding: 12px 20px;
+        background: #1e3a8a;
+        color: white;
+        border: none;
+        border-radius: 7px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .success {
+        background: #dcfce7;
+        color: #166534;
+        padding: 12px;
+        border-radius: 7px;
+        margin-bottom: 20px;
+    }
+
+</style>
+
+
+<div class="profile">
+
+    <h1>👤 Student Profile</h1>
+
+    {% if msg %}
+
+        <div class="success">
+            {{ msg }}
+        </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="group">
+
+            <label>Username</label>
+
+            <input type="text"
+                   value="{{ student.1 }}"
+                   readonly>
+
+        </div>
+
+
+        <div class="group">
+
+            <label>Contact</label>
+
+            <input type="text"
+                   name="contact"
+                   value="{{ student.3 }}"
+                   required>
+
+        </div>
+
+
+        <div class="group">
+
+            <label>Email</label>
+
+            <input type="email"
+                   name="email"
+                   value="{{ student.4 }}"
+                   required>
+
+        </div>
+
+
+        <div class="group">
+
+            <label>Address</label>
+
+            <textarea name="address">{{ student.5 }}</textarea>
+
+        </div>
+
+
+        <button type="submit">
+            💾 Update Profile
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}
+Student Notifications - Library Management System
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.page-container {
+    width: 100%;
+}
+
+.header-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.header-box h1 {
+    margin: 0;
+    color: #1e3a8a;
+}
+
+.header-box p {
+    color: #666;
+}
+
+.notification-card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
+    border-left: 5px solid #1e3a8a;
+}
+
+.notification-card h2 {
+    margin-top: 0;
+    color: #1e3a8a;
+}
+
+.notification-info {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.info-box {
+    background: #f8fafc;
+    padding: 14px;
+    border-radius: 8px;
+}
+
+.label {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.value {
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.booking {
+    color: #2563eb;
+}
+
+.due-soon {
+    color: #d97706;
+}
+
+.overdue {
+    color: #dc2626;
+}
+
+.returned {
+    color: #059669;
+}
+
+.cancelled {
+    color: #6b7280;
+}
+
+.fine {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.empty {
+    background: white;
+    padding: 50px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+</style>
+
+
+<div class="page-container">
+
+    <div class="header-box">
+
+        <h1>
+            🔔 My Notifications
+        </h1>
+
+        <p>
+            View your bookings, due dates,
+            overdue books and current fines.
+        </p>
+
+    </div>
+
+
+    {% if notifications %}
+
+        {% for notification in notifications %}
+
+            <div class="notification-card">
+
+                <h2>
+
+                    {% if notification.notification_type == "Overdue" %}
+
+                        ⚠️ Book Overdue
+
+                    {% elif notification.notification_type == "Due Soon" %}
+
+                        ⏰ Due Date Reminder
+
+                    {% elif notification.notification_type == "Returned" %}
+
+                        ↩️ Book Returned
+
+                    {% elif notification.notification_type == "Cancelled" %}
+
+                        ❌ Booking Cancelled
+
+                    {% else %}
+
+                        📚 Book Booking
+
+                    {% endif %}
+
+                </h2>
+
+
+                <div class="notification-info">
+
+
+                    <!-- BOOK -->
+
+                    <div class="info-box">
+
+                        <div class="label">
+                            Book
+                        </div>
+
+                        <div class="value">
+                            {{ notification.book_name }}
+                        </div>
+
+                    </div>
+
+
+                    <!-- BOOKING DATE -->
+
+                    <div class="info-box">
+
+                        <div class="label">
+                            Booking Date
+                        </div>
+
+                        <div class="value">
+                            {{ notification.booking_date }}
+                        </div>
+
+                    </div>
+
+
+                    <!-- DUE DATE -->
+
+                    <div class="info-box">
+
+                        <div class="label">
+                            Due Date
+                        </div>
+
+                        <div class="value">
+                            {% if notification.due_date %}
+                                {{ notification.due_date }}
+                            {% else %}
+                                Not Available
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="info-box">
+
+                        <div class="label">
+                            Status
+                        </div>
+
+                        <div class="value">
+
+                            {% if notification.status == "Overdue" %}
+
+                                <span class="overdue">
+                                    ⚠️ Overdue
+                                </span>
+
+                            {% elif notification.status == "Returned" %}
+
+                                <span class="returned">
+                                    ↩️ Returned
+                                </span>
+
+                            {% elif notification.status == "Cancelled" %}
+
+                                <span class="cancelled">
+                                    ❌ Cancelled
+                                </span>
+
+                            {% else %}
+
+                                <span class="booking">
+                                    📚 Booked
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CURRENT FINE -->
+
+                    <div class="info-box">
+
+                        <div class="label">
+                            💰 Current Fine
+                        </div>
+
+                        <div class="value fine">
+                            ₹{{ notification.fine|floatformat:2 }}
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <div class="empty">
+
+            <h2>
+                🔔 No Notifications
+            </h2>
+
+            <p>
+                You currently have no notifications.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

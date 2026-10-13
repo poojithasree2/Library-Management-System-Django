@@ -1,0 +1,1899 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Library Management System
+        {% endblock %}
+    </title>
+
+
+    <!-- ================================================= -->
+    <!-- GOOGLE FONTS -->
+    <!-- ================================================= -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+
+    <!-- ================================================= -->
+    <!-- BOOTSTRAP -->
+    <!-- ================================================= -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- ================================================= -->
+    <!-- BOOTSTRAP ICONS -->
+    <!-- ================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <!-- ================================================= -->
+    <!-- GLOBAL CSS -->
+    <!-- ================================================= -->
+
+    <style>
+
+        /* ================================================= */
+        /* ROOT COLORS */
+        /* ================================================= */
+
+        :root {
+
+            --primary: #6366f1;
+            --primary-dark: #4338ca;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+
+            --dark: #0f172a;
+            --dark-2: #1e293b;
+
+            --light: #f8fafc;
+
+            --text: #1e293b;
+            --muted: #64748b;
+
+            --white: #ffffff;
+
+            --glass: rgba(255,255,255,0.94);
+        }
+
+
+        /* ================================================= */
+        /* HTML / BODY */
+        /* ================================================= */
+
+        html,
+        body {
+
+            min-height: 100%;
+
+            margin: 0;
+
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                "Poppins",
+                sans-serif;
+
+            color:
+                var(--text);
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    rgba(15,23,42,0.94),
+                    rgba(49,46,129,0.88),
+                    rgba(30,41,59,0.94)
+                ),
+
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2200&q=90")
+                center center /
+                cover
+                fixed
+                no-repeat;
+
+            min-height:
+                100vh;
+        }
+
+
+        /* ================================================= */
+        /* NAVBAR */
+        /* ================================================= */
+
+        .main-navbar {
+
+            background:
+                rgba(15,23,42,0.92);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 8px 30px
+                rgba(0,0,0,0.20);
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                1000;
+        }
+
+
+        .navbar-brand {
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            font-size:
+                1.45rem;
+
+            font-weight:
+                800;
+
+            color:
+                white !important;
+
+            letter-spacing:
+                0.3px;
+        }
+
+
+        .navbar-brand i {
+
+            color:
+                #a78bfa;
+        }
+
+
+        .nav-link {
+
+            color:
+                rgba(255,255,255,0.82)
+                !important;
+
+            font-weight:
+                500;
+
+            padding:
+                9px 11px !important;
+
+            border-radius:
+                10px;
+
+            transition:
+                all 0.25s ease;
+        }
+
+
+        .nav-link:hover {
+
+            color:
+                white !important;
+
+            background:
+                rgba(99,102,241,0.25);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .nav-link.active {
+
+            color:
+                white !important;
+
+            background:
+                rgba(99,102,241,0.35);
+        }
+
+
+        .navbar-toggler {
+
+            border:
+                1px solid
+                rgba(255,255,255,0.35);
+        }
+
+
+        .navbar-toggler:focus {
+
+            box-shadow:
+                none;
+        }
+
+
+        .navbar-toggler-icon {
+
+            filter:
+                brightness(0)
+                invert(1);
+        }
+
+
+        /* ================================================= */
+        /* MAIN CONTENT */
+        /* ================================================= */
+
+        .main-content {
+
+            min-height:
+                calc(100vh - 70px);
+
+            padding:
+                35px 20px;
+        }
+
+
+        .page-container {
+
+            width:
+                min(1200px, 100%);
+
+            margin:
+                0 auto;
+        }
+
+
+        /* ================================================= */
+        /* PAGE HEADER */
+        /* ================================================= */
+
+        .page-header {
+
+            background:
+                rgba(255,255,255,0.95);
+
+            backdrop-filter:
+                blur(15px);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.4);
+
+            border-radius:
+                20px;
+
+            padding:
+                28px 30px;
+
+            margin-bottom:
+                25px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(15,23,42,0.18);
+        }
+
+
+        .page-header h1 {
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            font-weight:
+                800;
+
+            color:
+                #312e81;
+
+            margin-bottom:
+                6px;
+        }
+
+
+        .page-header p {
+
+            color:
+                var(--muted);
+
+            margin:
+                0;
+        }
+
+
+        /* ================================================= */
+        /* GLASS CARD */
+        /* ================================================= */
+
+        .glass-card {
+
+            background:
+                var(--glass);
+
+            backdrop-filter:
+                blur(15px);
+
+            -webkit-backdrop-filter:
+                blur(15px);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.6);
+
+            border-radius:
+                20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(15,23,42,0.18);
+
+            transition:
+                all 0.3s ease;
+        }
+
+
+        .glass-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(15,23,42,0.25);
+        }
+
+
+        /* ================================================= */
+        /* DASHBOARD CARDS */
+        /* ================================================= */
+
+        .dashboard-card {
+
+            border:
+                none;
+
+            border-radius:
+                20px;
+
+            padding:
+                25px;
+
+            color:
+                white;
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            min-height:
+                155px;
+
+            box-shadow:
+                0 15px 35px
+                rgba(0,0,0,0.20);
+
+            transition:
+                all 0.3s ease;
+        }
+
+
+        .dashboard-card:hover {
+
+            transform:
+                translateY(-7px);
+
+            box-shadow:
+                0 20px 45px
+                rgba(0,0,0,0.28);
+        }
+
+
+        .dashboard-card::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                130px;
+
+            height:
+                130px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            right:
+                -35px;
+
+            bottom:
+                -40px;
+        }
+
+
+        .dashboard-card i {
+
+            font-size:
+                2.4rem;
+
+            opacity:
+                0.9;
+        }
+
+
+        .dashboard-card h2 {
+
+            font-size:
+                2rem;
+
+            font-weight:
+                800;
+
+            margin:
+                12px 0 2px;
+        }
+
+
+        .dashboard-card p {
+
+            margin:
+                0;
+
+            opacity:
+                0.85;
+        }
+
+
+        .card-blue {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #6366f1
+                );
+        }
+
+
+        .card-purple {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #8b5cf6
+                );
+        }
+
+
+        .card-cyan {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0891b2,
+                    #06b6d4
+                );
+        }
+
+
+        .card-green {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #059669,
+                    #10b981
+                );
+        }
+
+
+        .card-orange {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d97706,
+                    #f59e0b
+                );
+        }
+
+
+        .card-red {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dc2626,
+                    #ef4444
+                );
+        }
+
+
+        /* ================================================= */
+        /* BUTTONS */
+        /* ================================================= */
+
+        .btn-primary {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            border:
+                none;
+
+            border-radius:
+                10px;
+
+            font-weight:
+                600;
+
+            padding:
+                10px 18px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(99,102,241,0.25);
+        }
+
+
+        .btn-primary:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    #7c3aed
+                );
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .btn-success,
+        .btn-danger,
+        .btn-warning {
+
+            border-radius:
+                10px;
+
+            font-weight:
+                600;
+        }
+
+
+        /* ================================================= */
+        /* TABLE */
+        /* ================================================= */
+
+        .modern-table {
+
+            overflow:
+                hidden;
+
+            border-radius:
+                15px;
+
+            background:
+                white;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.12);
+        }
+
+
+        .modern-table thead {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #312e81,
+                    #4f46e5
+                );
+
+            color:
+                white;
+        }
+
+
+        .modern-table th {
+
+            padding:
+                15px;
+
+            font-weight:
+                600;
+
+            border:
+                none;
+        }
+
+
+        .modern-table td {
+
+            padding:
+                14px;
+
+            vertical-align:
+                middle;
+        }
+
+
+        .modern-table tbody tr {
+
+            transition:
+                background 0.2s ease;
+        }
+
+
+        .modern-table tbody tr:hover {
+
+            background:
+                #f5f3ff;
+        }
+
+
+        /* ================================================= */
+        /* FORMS */
+        /* ================================================= */
+
+        .form-card {
+
+            background:
+                rgba(255,255,255,0.96);
+
+            border-radius:
+                20px;
+
+            padding:
+                30px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(15,23,42,0.20);
+        }
+
+
+        .form-label {
+
+            font-weight:
+                600;
+
+            color:
+                #334155;
+        }
+
+
+        .form-control,
+        .form-select {
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius:
+                10px;
+
+            padding:
+                11px 14px;
+
+            transition:
+                all 0.2s ease;
+        }
+
+
+        .form-control:focus,
+        .form-select:focus {
+
+            border-color:
+                var(--primary);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(99,102,241,0.12);
+        }
+
+
+        /* ================================================= */
+        /* BOOK CARDS */
+        /* ================================================= */
+
+        .book-card {
+
+            background:
+                rgba(255,255,255,0.96);
+
+            border:
+                none;
+
+            border-radius:
+                18px;
+
+            overflow:
+                hidden;
+
+            box-shadow:
+                0 12px 30px
+                rgba(0,0,0,0.16);
+
+            height:
+                100%;
+
+            transition:
+                all 0.3s ease;
+        }
+
+
+        .book-card:hover {
+
+            transform:
+                translateY(-7px);
+
+            box-shadow:
+                0 20px 40px
+                rgba(0,0,0,0.22);
+        }
+
+
+        .book-card img {
+
+            height:
+                250px;
+
+            width:
+                100%;
+
+            object-fit:
+                cover;
+        }
+
+
+        .book-card-body {
+
+            padding:
+                20px;
+        }
+
+
+        .book-title {
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            font-size:
+                1.3rem;
+
+            font-weight:
+                700;
+
+            color:
+                #312e81;
+        }
+
+
+        /* ================================================= */
+        /* CATEGORY CARDS */
+        /* ================================================= */
+
+        .category-card {
+
+            background:
+                rgba(255,255,255,0.96);
+
+            border-radius:
+                18px;
+
+            padding:
+                25px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 12px 30px
+                rgba(0,0,0,0.14);
+
+            transition:
+                all 0.3s ease;
+
+            height:
+                100%;
+        }
+
+
+        .category-card:hover {
+
+            transform:
+                translateY(-6px);
+
+            box-shadow:
+                0 18px 40px
+                rgba(0,0,0,0.20);
+        }
+
+
+        .category-icon {
+
+            width:
+                65px;
+
+            height:
+                65px;
+
+            margin:
+                0 auto 15px;
+
+            border-radius:
+                18px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            color:
+                white;
+
+            font-size:
+                1.8rem;
+        }
+
+
+        .category-card h4 {
+
+            color:
+                #312e81;
+
+            font-weight:
+                700;
+        }
+
+
+        /* ================================================= */
+        /* STATUS BADGES */
+        /* ================================================= */
+
+        .status-badge {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                5px;
+
+            padding:
+                6px 11px;
+
+            border-radius:
+                30px;
+
+            font-size:
+                0.82rem;
+
+            font-weight:
+                700;
+        }
+
+
+        .status-booked {
+
+            background:
+                #dbeafe;
+
+            color:
+                #1d4ed8;
+        }
+
+
+        .status-overdue {
+
+            background:
+                #fee2e2;
+
+            color:
+                #b91c1c;
+        }
+
+
+        .status-returned {
+
+            background:
+                #d1fae5;
+
+            color:
+                #047857;
+        }
+
+
+        .status-cancelled {
+
+            background:
+                #e2e8f0;
+
+            color:
+                #475569;
+        }
+
+
+        .status-available {
+
+            background:
+                #d1fae5;
+
+            color:
+                #047857;
+        }
+
+
+        .status-unavailable {
+
+            background:
+                #fee2e2;
+
+            color:
+                #b91c1c;
+        }
+
+
+        /* ================================================= */
+        /* NOTIFICATIONS */
+        /* ================================================= */
+
+        .notification-card {
+
+            background:
+                rgba(255,255,255,0.97);
+
+            border-radius:
+                18px;
+
+            padding:
+                22px;
+
+            margin-bottom:
+                18px;
+
+            border-left:
+                5px solid
+                var(--primary);
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.15);
+
+            transition:
+                all 0.25s ease;
+        }
+
+
+        .notification-card:hover {
+
+            transform:
+                translateX(4px);
+        }
+
+
+        .notification-card.overdue {
+
+            border-left-color:
+                var(--danger);
+        }
+
+
+        .notification-card.returned {
+
+            border-left-color:
+                var(--success);
+        }
+
+
+        .notification-card.cancelled {
+
+            border-left-color:
+                #64748b;
+        }
+
+
+        .notification-card.warning {
+
+            border-left-color:
+                var(--warning);
+        }
+
+
+        .fine-text {
+
+            color:
+                #dc2626;
+
+            font-weight:
+                800;
+        }
+
+
+        /* ================================================= */
+        /* EMPTY STATE */
+        /* ================================================= */
+
+        .empty-state {
+
+            background:
+                rgba(255,255,255,0.96);
+
+            border-radius:
+                20px;
+
+            padding:
+                60px 30px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.15);
+        }
+
+
+        .empty-state i {
+
+            font-size:
+                4rem;
+
+            color:
+                #6366f1;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        /* ================================================= */
+        /* PROFILE */
+        /* ================================================= */
+
+        .profile-card {
+
+            background:
+                rgba(255,255,255,0.97);
+
+            border-radius:
+                20px;
+
+            padding:
+                30px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.18);
+        }
+
+
+        .profile-icon {
+
+            width:
+                90px;
+
+            height:
+                90px;
+
+            border-radius:
+                50%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #8b5cf6
+                );
+
+            color:
+                white;
+
+            font-size:
+                2.5rem;
+
+            margin:
+                0 auto 15px;
+        }
+
+
+        /* ================================================= */
+        /* SEARCH BOX */
+        /* ================================================= */
+
+        .search-box {
+
+            background:
+                rgba(255,255,255,0.96);
+
+            border-radius:
+                16px;
+
+            padding:
+                18px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.12);
+
+            margin-bottom:
+                25px;
+        }
+
+
+        /* ================================================= */
+        /* FOOTER */
+        /* ================================================= */
+
+        .main-footer {
+
+            background:
+                rgba(15,23,42,0.92);
+
+            color:
+                rgba(255,255,255,0.75);
+
+            text-align:
+                center;
+
+            padding:
+                18px;
+
+            margin-top:
+                30px;
+        }
+
+
+        .main-footer small {
+
+            display:
+                block;
+
+            margin-top:
+                5px;
+        }
+
+
+        /* ================================================= */
+        /* MOBILE */
+        /* ================================================= */
+
+        @media (max-width: 991px) {
+
+            .navbar-nav {
+
+                padding:
+                    10px 0;
+            }
+
+
+            .nav-link {
+
+                margin:
+                    2px 0;
+            }
+
+        }
+
+
+        @media (max-width: 768px) {
+
+            .main-content {
+
+                padding:
+                    20px 12px;
+            }
+
+
+            .page-header {
+
+                padding:
+                    22px;
+            }
+
+
+            .page-header h1 {
+
+                font-size:
+                    1.7rem;
+            }
+
+
+            .dashboard-card {
+
+                min-height:
+                    135px;
+            }
+
+
+            .book-card img {
+
+                height:
+                    220px;
+            }
+
+        }
+
+    </style>
+
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<!-- ===================================================== -->
+<!-- NAVBAR -->
+<!-- ===================================================== -->
+
+<nav class="navbar navbar-expand-lg main-navbar">
+
+    <div class="container-fluid px-lg-4">
+
+
+        <!-- ================================================= -->
+        <!-- LOGO -->
+        <!-- ================================================= -->
+
+        <a class="navbar-brand"
+           href="{% url 'index' %}">
+
+            <i class="bi bi-book-half"></i>
+
+            LibraryHub
+
+        </a>
+
+
+        <!-- ================================================= -->
+        <!-- MOBILE MENU -->
+        <!-- ================================================= -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar">
+
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                <!-- ================================================= -->
+                <!-- STUDENT NAVIGATION -->
+                <!-- ================================================= -->
+
+                {% if request.session.user_type == "student" %}
+
+
+                    <!-- STUDENT DASHBOARD -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'student_home' %}">
+
+                            <i class="bi bi-house"></i>
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- AVAILABLE BOOKS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'available_books' %}">
+
+                            <i class="bi bi-book"></i>
+
+                            Books
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- BOOK CATEGORIES -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'book_categories' %}">
+
+                            <i class="bi bi-grid"></i>
+
+                            Categories
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- SEARCH BOOKS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'search_books' %}">
+
+                            <i class="bi bi-search"></i>
+
+                            Search
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- MY BOOKINGS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'my_bookings' %}">
+
+                            <i class="bi bi-journal-check"></i>
+
+                            My Bookings
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- BOOKING HISTORY -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'booking_history' %}">
+
+                            <i class="bi bi-clock-history"></i>
+
+                            History
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- STUDENT NOTIFICATIONS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'student_notifications' %}">
+
+                            <i class="bi bi-bell"></i>
+
+                            Notifications
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- STUDENT PROFILE -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'student_profile' %}">
+
+                            <i class="bi bi-person-circle"></i>
+
+                            Profile
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- CHANGE PASSWORD -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'change_password' %}">
+
+                            <i class="bi bi-shield-lock"></i>
+
+                            Password
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- LOGOUT -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'logout' %}">
+
+                            <i class="bi bi-box-arrow-right"></i>
+
+                            Logout
+
+                        </a>
+
+                    </li>
+
+
+                <!-- ================================================= -->
+                <!-- ADMIN NAVIGATION -->
+                <!-- ================================================= -->
+
+                {% elif request.session.user_type == "admin" %}
+
+
+                    <!-- ADMIN DASHBOARD -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'admin_home' %}">
+
+                            <i class="bi bi-speedometer2"></i>
+
+                            Dashboard
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- ADD BOOK -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'add_book' %}">
+
+                            <i class="bi bi-plus-circle"></i>
+
+                            Add Book
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- VIEW BOOKS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'view_books' %}">
+
+                            <i class="bi bi-bookshelf"></i>
+
+                            Books
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- BOOK CATEGORIES -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'book_categories' %}">
+
+                            <i class="bi bi-grid"></i>
+
+                            Categories
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- STUDENT MANAGEMENT -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'view_students' %}">
+
+                            <i class="bi bi-people"></i>
+
+                            Student Management
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- BOOKING MANAGEMENT -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'view_bookings' %}">
+
+                            <i class="bi bi-calendar-check"></i>
+
+                            Booking Management
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- BOOKING HISTORY -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'booking_history' %}">
+
+                            <i class="bi bi-clock-history"></i>
+
+                            History
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- ADMIN NOTIFICATIONS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'admin_notifications' %}">
+
+                            <i class="bi bi-bell"></i>
+
+                            Notifications
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- STATISTICS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'admin_statistics' %}">
+
+                            <i class="bi bi-bar-chart-line"></i>
+
+                            Statistics
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- LOGOUT -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'logout' %}">
+
+                            <i class="bi bi-box-arrow-right"></i>
+
+                            Logout
+
+                        </a>
+
+                    </li>
+
+
+                <!-- ================================================= -->
+                <!-- GUEST NAVIGATION -->
+                <!-- ================================================= -->
+
+                {% else %}
+
+
+                    <!-- HOME -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'index' %}">
+
+                            <i class="bi bi-house"></i>
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- STUDENT LOGIN -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'login' %}">
+
+                            <i class="bi bi-person"></i>
+
+                            Student Login
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- STUDENT SIGNUP -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'signup' %}">
+
+                            <i class="bi bi-person-plus"></i>
+
+                            Signup
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- ADMIN LOGIN -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="{% url 'admin_login' %}">
+
+                            <i class="bi bi-shield-lock"></i>
+
+                            Admin Login
+
+                        </a>
+
+                    </li>
+
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ===================================================== -->
+<!-- MAIN CONTENT -->
+<!-- ===================================================== -->
+
+<main class="main-content">
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer class="main-footer">
+
+    <div>
+
+        <i class="bi bi-book-half"></i>
+
+        <strong>
+            LibraryHub
+        </strong>
+
+        &nbsp; | &nbsp;
+
+        Library Management System
+
+    </div>
+
+
+    <small>
+
+        © 2026 All Rights Reserved
+
+    </small>
+
+</footer>
+
+
+<!-- ===================================================== -->
+<!-- BOOTSTRAP JS -->
+<!-- ===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- ===================================================== -->
+<!-- ACTIVE NAVIGATION -->
+<!-- ===================================================== -->
+
+<script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const currentPath =
+                window.location.pathname;
+
+            const navLinks =
+                document.querySelectorAll(
+                    ".navbar-nav .nav-link"
+                );
+
+
+            navLinks.forEach(
+                function (link) {
+
+                    const href =
+                        link.getAttribute("href");
+
+
+                    if (
+                        href &&
+                        href !== "#" &&
+                        href !== "/"
+                    ) {
+
+                        try {
+
+                            const linkPath =
+                                new URL(
+                                    href,
+                                    window.location.origin
+                                ).pathname;
+
+
+                            if (
+                                currentPath === linkPath
+                            ) {
+
+                                link.classList.add(
+                                    "active"
+                                );
+
+                            }
+
+                        }
+
+                        catch (error) {
+
+                            console.log(
+                                "Navigation error:",
+                                error
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+</script>
+
+
+{% block extra_js %}
+{% endblock %}
+
+
+</body>
+
+</html>

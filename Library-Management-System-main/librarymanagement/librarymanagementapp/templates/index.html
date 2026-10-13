@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(5, 15, 30, 0.78),
+                    rgba(5, 15, 30, 0.84)
+                ),
+                url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            min-height: 72px;
+
+            background: rgba(5, 12, 25, 0.82);
+
+            backdrop-filter: blur(10px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 15px 40px;
+        }
+
+        .brand {
+            color: white;
+            text-decoration: none;
+
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .brand span {
+            color: #f5a400;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+
+            margin-left: 25px;
+
+            font-size: 15px;
+            font-weight: 500;
+
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #f5a400;
+        }
+
+        /* MAIN */
+
+        .main {
+            min-height: calc(100vh - 72px);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px 20px;
+        }
+
+        .content {
+            width: 850px;
+            max-width: 100%;
+
+            text-align: center;
+
+            color: white;
+
+            animation: appear 0.8s ease;
+        }
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .icon {
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f5a400;
+
+            border-radius: 50%;
+
+            font-size: 45px;
+
+            box-shadow:
+                0 10px 30px rgba(245,164,0,0.35);
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        h1 span {
+            color: #f5a400;
+        }
+
+        .subtitle {
+            font-size: 19px;
+            color: #dddddd;
+
+            line-height: 1.6;
+
+            margin-bottom: 35px;
+        }
+
+        .buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 18px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 15px 32px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .primary {
+            background: #f5a400;
+            color: white;
+        }
+
+        .primary:hover {
+            background: #d98f00;
+
+            transform: translateY(-3px);
+        }
+
+        .secondary {
+            background: transparent;
+
+            color: white;
+
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .secondary:hover {
+            background: white;
+            color: #172033;
+
+            transform: translateY(-3px);
+        }
+
+        .admin {
+            margin-top: 25px;
+
+            color: #dddddd;
+
+            font-size: 14px;
+        }
+
+        .admin a {
+            color: #f5a400;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .admin a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            margin-bottom: 20px;
+
+            padding: 12px;
+
+            background: rgba(245,164,0,0.15);
+
+            border: 1px solid rgba(245,164,0,0.4);
+
+            border-radius: 8px;
+
+            color: #ffd166;
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+
+                gap: 15px;
+
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-link {
+                margin: 5px 10px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="{% url 'index' %}" class="brand">
+        Library <span>Management</span>
+    </a>
+
+    <div class="nav-links">
+
+        <a href="{% url 'index' %}" class="nav-link">
+            Home
+        </a>
+
+        <a href="{% url 'login' %}" class="nav-link">
+            Student Login
+        </a>
+
+        <a href="{% url 'signup' %}" class="nav-link">
+            Register
+        </a>
+
+        <a href="{% url 'admin_login' %}" class="nav-link">
+            Admin Login
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="main">
+
+    <div class="content">
+
+        <div class="icon">
+            📚
+        </div>
+
+        <h1>
+            Library <span>Management</span>
+        </h1>
+
+        <p class="subtitle">
+
+            Welcome to the Student Library Management System.
+            <br>
+
+            Search, book and manage library resources easily.
+
+        </p>
+
+
+        {% if msg %}
+
+            <div class="message">
+                {{ msg }}
+            </div>
+
+        {% endif %}
+
+
+        <div class="buttons">
+
+            <a href="{% url 'login' %}"
+               class="btn primary">
+
+                Student Login
+
+            </a>
+
+            <a href="{% url 'signup' %}"
+               class="btn secondary">
+
+                Create Account
+
+            </a>
+
+        </div>
+
+
+        <div class="admin">
+
+            Are you an administrator?
+
+            <a href="{% url 'admin_login' %}">
+                Admin Login
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

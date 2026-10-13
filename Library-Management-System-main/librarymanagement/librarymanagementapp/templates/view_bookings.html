@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>View Bookings | Library Management</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+
+    background:
+        linear-gradient(
+            rgba(5,15,30,0.82),
+            rgba(5,15,30,0.86)
+        ),
+        url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2000&q=90");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.navbar {
+    min-height: 72px;
+    background: rgba(5,12,25,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+}
+
+.brand {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.brand span {
+    color: #f5a400;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #f5a400;
+}
+
+.main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 45px 20px;
+}
+
+.box {
+    background: rgba(255,255,255,0.97);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+
+h1 {
+    text-align: center;
+    color: #172033;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+th {
+    background: #172033;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover td {
+    background: #fff8e8;
+}
+
+.back {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #d99000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media(max-width:700px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<a href="{% url 'index' %}" class="brand">
+    📚 Library <span>Management</span>
+</a>
+
+<div class="nav-links">
+
+<a href="{% url 'index' %}">
+    Home
+</a>
+
+<a href="{% url 'view_books' %}">
+    Books
+</a>
+
+<a href="{% url 'students' %}">
+    Students
+</a>
+
+<a href="{% url 'view_bookings' %}">
+    Bookings
+</a>
+
+</div>
+
+</nav>
+
+<main class="main">
+
+<div class="box">
+
+<h1>
+    Book Reservations
+</h1>
+
+<p class="subtitle">
+    All student book reservations
+</p>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Student</th>
+<th>Book</th>
+<th>Booking Date</th>
+<th>Time Slot</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for booking in bookings %}
+
+<tr>
+
+<td>
+    {{ booking.0 }}
+</td>
+
+<td>
+    {{ booking.1 }}
+</td>
+
+<td>
+    {{ booking.2 }}
+</td>
+
+<td>
+    {{ booking.3 }}
+</td>
+
+<td>
+    {{ booking.4 }}
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="5"
+    style="text-align:center;padding:30px;">
+
+    No bookings found.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+<a href="{% url 'admin_login' %}" class="back">
+    ← Back to Admin
+</a>
+
+</div>
+
+</main>
+
+</body>
+
+</html>

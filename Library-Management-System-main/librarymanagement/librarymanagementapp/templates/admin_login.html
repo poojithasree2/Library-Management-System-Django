@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Library Management System</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(5, 15, 30, 0.82),
+                    rgba(5, 15, 30, 0.88)
+                ),
+                url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-attachment: fixed;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        .card {
+
+            width: 430px;
+
+            max-width: 100%;
+
+            background:
+                rgba(255, 255, 255, 0.97);
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 25px 60px
+                rgba(0, 0, 0, 0.45);
+        }
+
+
+        .icon {
+
+            width: 75px;
+
+            height: 75px;
+
+            margin:
+                0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #f5a400;
+
+            color: white;
+
+            border-radius: 50%;
+
+            font-size: 32px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(245, 164, 0, 0.3);
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #172033;
+
+            margin-bottom: 8px;
+
+            font-size: 28px;
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+
+            line-height: 1.5;
+        }
+
+
+        .message {
+
+            text-align: center;
+
+            background: #fff0f0;
+
+            color: #dc3545;
+
+            border:
+                1px solid #ffd0d0;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #252525;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        input[type="text"],
+        input[type="password"] {
+
+            width: 100%;
+
+            height: 52px;
+
+            padding:
+                12px 15px;
+
+            border:
+                1px solid #d5d5d5;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            margin-bottom: 20px;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+
+            border-color: #f5a400;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(245, 164, 0, 0.15);
+        }
+
+
+        .btn {
+
+            width: 100%;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #f5a400;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .btn:hover {
+
+            background: #d98f00;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .links {
+
+            text-align: center;
+
+            margin-top: 25px;
+        }
+
+
+        .links a {
+
+            color: #d99000;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .links a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        .admin-info {
+
+            margin-top: 25px;
+
+            padding: 14px;
+
+            background: #fff8e6;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            color: #765500;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        @media (max-width: 500px) {
+
+            .card {
+
+                padding: 30px 22px;
+
+            }
+
+            h1 {
+
+                font-size: 24px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="card">
+
+
+    <!-- ADMIN ICON -->
+
+    <div class="icon">
+
+        🔐
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h1>
+
+        Admin Login
+
+    </h1>
+
+
+    <p class="subtitle">
+
+        Login to access the
+        Library Management System
+        administrator dashboard.
+
+    </p>
+
+
+    <!-- ERROR MESSAGE -->
+
+    {% if msg %}
+
+        <div class="message">
+
+            {{ msg }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- LOGIN FORM -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <label for="username">
+
+            Admin Username
+
+        </label>
+
+
+        <input
+            type="text"
+            id="username"
+            name="t1"
+            placeholder="Enter admin username"
+            autocomplete="username"
+            required
+        >
+
+
+        <label for="password">
+
+            Password
+
+        </label>
+
+
+        <input
+            type="password"
+            id="password"
+            name="t2"
+            placeholder="Enter admin password"
+            autocomplete="current-password"
+            required
+        >
+
+
+        <input
+            type="submit"
+            value="Admin Login"
+            class="btn"
+        >
+
+    </form>
+
+
+    <!-- LOGIN INFORMATION -->
+
+    <div class="admin-info">
+
+        🔒 Administrator access only.<br>
+
+        Your admin session is protected
+        after successful login.
+
+    </div>
+
+
+    <!-- BACK HOME -->
+
+    <div class="links">
+
+        <a href="{% url 'index' %}">
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}
+Book Categories - LibraryHub
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <h1>
+
+            <i class="bi bi-tags"></i>
+
+            Book Categories
+
+        </h1>
+
+        <p>
+            Select a category to view its books.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        {% for category in categories %}
+
+        <div class="col-lg-4 col-md-6">
+
+            <a
+                href="{% url 'book_category' category.0 %}"
+                class="text-decoration-none">
+
+                <div class="glass-card p-4 text-center h-100">
+
+                    <i
+                        class="bi bi-bookmark-star"
+                        style="
+                        font-size:3rem;
+                        color:#6366f1;
+                        ">
+                    </i>
+
+
+                    <h3 class="mt-3">
+
+                        {{ category.0 }}
+
+                    </h3>
+
+
+                    <p class="text-muted">
+
+                        {{ category.1 }}
+                        book{{ category.1|pluralize }}
+
+                    </p>
+
+
+                    <span class="btn btn-primary">
+
+                        View Books
+                        <i class="bi bi-arrow-right"></i>
+
+                    </span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="empty-state">
+
+                <i class="bi bi-tags"></i>
+
+                <h3>
+                    No Categories Found
+                </h3>
+
+                <p>
+                    Add books with categories from the Admin panel.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ category }} Books - LibraryHub
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <h1>
+            <i class="bi bi-book"></i>
+            {{ category }} Books
+        </h1>
+
+        <p>
+            Books available in the {{ category }} category.
+        </p>
+
+    </div>
+
+
+    {% if books %}
+
+    <div class="row g-4">
+
+        {% for book in books %}
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="book-card">
+
+                {% if book.6 %}
+
+                    <img
+                        src="{{ book.6 }}"
+                        alt="{{ book.1 }}"
+                        onerror="this.style.display='none';"
+                    >
+
+                {% else %}
+
+                    <div
+                        style="
+                        height:250px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        background:#e0e7ff;
+                        "
+                    >
+
+                        <div class="text-center">
+
+                            <i
+                                class="bi bi-book"
+                                style="font-size:4rem;color:#6366f1;"
+                            ></i>
+
+                            <div>
+                                No Cover
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="book-card-body">
+
+                    <div class="book-title">
+
+                        {{ book.1 }}
+
+                    </div>
+
+
+                    <p class="mb-2">
+
+                        <strong>
+                            Author:
+                        </strong>
+
+                        {{ book.2 }}
+
+                    </p>
+
+
+                    <p class="mb-2">
+
+                        <strong>
+                            Category:
+                        </strong>
+
+                        {{ book.4 }}
+
+                    </p>
+
+
+                    {% if book.3 > 0 %}
+
+                        <span class="status-badge status-returned">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            {{ book.3 }} Available
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="status-badge status-overdue">
+
+                            <i class="bi bi-x-circle"></i>
+
+                            Unavailable
+
+                        </span>
+
+                    {% endif %}
+
+
+                    <div class="mt-3">
+
+                        <a
+                            href="{% url 'book_details' book.0 %}"
+                            class="btn btn-primary"
+                        >
+
+                            <i class="bi bi-eye"></i>
+
+                            View Details
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <i class="bi bi-book"></i>
+
+        <h3>
+            No Books Found
+        </h3>
+
+        <p>
+            There are no books in the
+            <strong>{{ category }}</strong>
+            category.
+        </p>
+
+        <a
+            href="{% url 'available_books' %}"
+            class="btn btn-primary"
+        >
+
+            Back to Books
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

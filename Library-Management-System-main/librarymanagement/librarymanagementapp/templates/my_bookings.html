@@ -1,0 +1,355 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Bookings - Library Management System
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .page-container {
+        width: 100%;
+    }
+
+    .header-box {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
+    }
+
+    .header-box h1 {
+        margin: 0;
+        color: #1e3a8a;
+    }
+
+    .header-box p {
+        color: #64748b;
+    }
+
+    .fine-box {
+        margin-top: 15px;
+        display: inline-block;
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+    }
+
+    .booking-card {
+        background: white;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .booking-card h2 {
+        color: #1e3a8a;
+        margin-top: 0;
+    }
+
+    .booking-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+    }
+
+    .info-box {
+        background: #f8fafc;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .label {
+        font-size: 13px;
+        color: #64748b;
+        margin-bottom: 5px;
+    }
+
+    .value {
+        font-weight: bold;
+        color: #1e293b;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 7px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+    }
+
+    .booked {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .overdue {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .returned {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .cancelled {
+        background: #f3f4f6;
+        color: #4b5563;
+    }
+
+    .fine {
+        color: #dc2626;
+        font-weight: bold;
+    }
+
+    .no-fine {
+        color: #15803d;
+        font-weight: bold;
+    }
+
+    .button-row {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    button,
+    .button {
+        border: none;
+        padding: 10px 16px;
+        border-radius: 7px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .return-btn {
+        background: #059669;
+    }
+
+    .return-btn:hover {
+        background: #047857;
+    }
+
+    .cancel-btn {
+        background: #dc2626;
+    }
+
+    .cancel-btn:hover {
+        background: #b91c1c;
+    }
+
+    .empty {
+        background: white;
+        padding: 50px;
+        text-align: center;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+</style>
+
+
+<div class="page-container">
+
+    <div class="header-box">
+
+        <h1>📋 My Bookings</h1>
+
+        <p>
+            View your bookings, due dates, status and fines.
+        </p>
+
+        <div class="fine-box">
+            💰 Total Fine:
+            ₹{{ total_fine|floatformat:2 }}
+        </div>
+
+    </div>
+
+
+    {% if bookings %}
+
+        {% for booking in bookings %}
+
+            <div class="booking-card">
+
+                <h2>
+                    📖 {{ booking.book_name }}
+                </h2>
+
+                <div class="booking-grid">
+
+                    <div class="info-box">
+                        <div class="label">Author</div>
+                        <div class="value">
+                            {{ booking.author }}
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label">Booking Date</div>
+                        <div class="value">
+                            {{ booking.booking_date }}
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label">Time Slot</div>
+                        <div class="value">
+                            {{ booking.time_slot }}
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label">Due Date</div>
+                        <div class="value">
+                            {{ booking.due_date }}
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label">Status</div>
+                        <div class="value">
+
+                            {% if booking.status == "Overdue" %}
+
+                                <span class="status overdue">
+                                    ⚠️ Overdue
+                                </span>
+
+                            {% elif booking.status == "Returned" %}
+
+                                <span class="status returned">
+                                    ↩️ Returned
+                                </span>
+
+                            {% elif booking.status == "Cancelled" %}
+
+                                <span class="status cancelled">
+                                    ❌ Cancelled
+                                </span>
+
+                            {% else %}
+
+                                <span class="status booked">
+                                    📚 Booked
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+
+                        <div class="label">
+                            Fine
+                        </div>
+
+                        <div class="value">
+
+                            {% if booking.fine > 0 %}
+
+                                <span class="fine">
+                                    ₹{{ booking.fine|floatformat:2 }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="no-fine">
+                                    ₹0.00
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {% if booking.status == "Booked" or booking.status == "Overdue" %}
+
+                    <div class="button-row">
+
+                        <form method="POST"
+                              action="{% url 'return_book' %}">
+
+                            {% csrf_token %}
+
+                            <input type="hidden"
+                                   name="booking_id"
+                                   value="{{ booking.id }}">
+
+                            <button type="submit"
+                                    class="return-btn">
+
+                                ↩️ Return Book
+
+                            </button>
+
+                        </form>
+
+
+                        <form method="POST"
+                              action="{% url 'cancel_booking' %}">
+
+                            {% csrf_token %}
+
+                            <input type="hidden"
+                                   name="booking_id"
+                                   value="{{ booking.id }}">
+
+                            <button type="submit"
+                                    class="cancel-btn">
+
+                                ❌ Cancel Booking
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+
+            <h2>📚 No Bookings Found</h2>
+
+            <p>
+                You have not booked any books yet.
+            </p>
+
+            <br>
+
+            <a href="{% url 'book_slot' %}"
+               class="button return-btn">
+
+                📅 Book a Book
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

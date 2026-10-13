@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Library Management System - Django, Python, MySQL and Bootstrap project by Kammineni Venkata Manasa.">
+
+    <meta name="keywords"
+          content="Library Management System, Django, Python, MySQL, Bootstrap, HTML, CSS, Data Analytics, CSE Project">
+
+    <meta name="author"
+          content="Kammineni Venkata Manasa">
+
+    <title>Library Management System | Kammineni Venkata Manasa</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    #172554 0%,
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at bottom left,
+                    #0f172a 0%,
+                    transparent 40%
+                ),
+
+                #020617;
+
+            color: #e5e7eb;
+
+            line-height: 1.6;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        .container {
+
+            width: min(1150px, 92%);
+
+            margin: auto;
+        }
+
+
+        /* ==========================
+           NAVBAR
+        ========================== */
+
+        nav {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            background:
+                rgba(2, 6, 23, 0.93);
+
+            backdrop-filter: blur(12px);
+
+            border-bottom:
+                1px solid
+                rgba(148, 163, 184, 0.15);
+        }
+
+
+        .nav-container {
+
+            min-height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .logo {
+
+            color: #38bdf8;
+
+            font-size: 20px;
+
+            font-weight: 800;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 25px;
+
+            list-style: none;
+        }
+
+
+        .nav-links a {
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+
+        .nav-links a:hover {
+
+            color: #38bdf8;
+        }
+
+
+        /* ==========================
+           HERO
+        ========================== */
+
+        .hero {
+
+            min-height: 90vh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 80px 0;
+        }
+
+
+        .hero-content {
+
+            max-width: 850px;
+        }
+
+
+        .tag {
+
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            border:
+                1px solid
+                rgba(56, 189, 248, 0.3);
+
+            border-radius: 50px;
+
+            color: #38bdf8;
+
+            background:
+                rgba(56, 189, 248, 0.08);
+
+            font-size: 13px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(42px, 7vw, 76px);
+
+            line-height: 1.05;
+
+            margin-bottom: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #38bdf8,
+                    #818cf8
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .hero h2 {
+
+            color: #cbd5e1;
+
+            font-size:
+                clamp(20px, 3vw, 30px);
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero p {
+
+            max-width: 760px;
+
+            color: #94a3b8;
+
+            font-size: 17px;
+        }
+
+
+        .hero-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+
+            margin-top: 30px;
+        }
+
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 13px 20px;
+
+            border-radius: 10px;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+
+        .btn-primary {
+
+            background: #38bdf8;
+
+            color: #020617;
+        }
+
+
+        .btn-primary:hover {
+
+            background: #7dd3fc;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .btn-secondary {
+
+            border:
+                1px solid #334155;
+
+            color: #e2e8f0;
+
+            background:
+                rgba(15, 23, 42, 0.7);
+        }
+
+
+        .btn-secondary:hover {
+
+            border-color: #38bdf8;
+
+            color: #38bdf8;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* ==========================
+           SECTIONS
+        ========================== */
+
+        section {
+
+            padding: 90px 0;
+        }
+
+
+        .section-title {
+
+            margin-bottom: 40px;
+        }
+
+
+        .section-title span {
+
+            color: #38bdf8;
+
+            font-size: 13px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            font-weight: 700;
+        }
+
+
+        .section-title h2 {
+
+            font-size: 38px;
+
+            margin-top: 8px;
+
+            color: #f8fafc;
+        }
+
+
+        .section-title p {
+
+            max-width: 750px;
+
+            color: #94a3b8;
+
+            margin-top: 12px;
+        }
+
+
+        /* ==========================
+           OVERVIEW CARDS
+        ========================== */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .card {
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(15, 23, 42, 0.72);
+
+            border:
+                1px solid #1e293b;
+
+            transition: 0.3s;
+        }
+
+
+        .card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                #38bdf8;
+        }
+
+
+        .card-icon {
+
+            font-size: 28px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .card h3 {
+
+            color: #f8fafc;
+
+            margin-bottom: 8px;
+
+            font-size: 18px;
+        }
+
+
+        .card p {
+
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+
+        /* ==========================
+           ABOUT
+        ========================== */
+
+        .about {
+
+            padding: 35px;
+
+            background:
+                rgba(15, 23, 42, 0.7);
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 18px;
+        }
+
+
+        .about p {
+
+            color: #cbd5e1;
+
+            margin-bottom: 15px;
+        }
+
+
+        .highlight {
+
+            color: #38bdf8;
+
+            font-weight: 700;
+        }
+
+
+        /* ==========================
+           FEATURES
+        ========================== */
+
+        .feature-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .feature {
+
+            padding: 25px;
+
+            background:
+                rgba(15, 23, 42, 0.7);
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 16px;
+        }
+
+
+        .feature h3 {
+
+            color: #38bdf8;
+
+            margin-bottom: 10px;
+        }
+
+
+        .feature p {
+
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+
+        /* ==========================
+           TECH STACK
+        ========================== */
+
+        .tech-list {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+
+        .tech {
+
+            padding: 10px 16px;
+
+            border-radius: 50px;
+
+            background: #0f172a;
+
+            border:
+                1px solid #334155;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+        }
+
+
+        /* ==========================
+           WORKFLOW
+        ========================== */
+
+        .workflow {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .step {
+
+            padding: 15px 18px;
+
+            background: #0f172a;
+
+            border:
+                1px solid #334155;
+
+            border-radius: 10px;
+
+            color: #cbd5e1;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+
+        .arrow {
+
+            color: #38bdf8;
+
+            font-size: 20px;
+        }
+
+
+        /* ==========================
+           SCREENSHOTS
+        ========================== */
+
+        .screenshot-box {
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(15, 23, 42, 0.7);
+
+            border:
+                1px solid #1e293b;
+
+            text-align: center;
+        }
+
+
+        .screenshot-box p {
+
+            color: #94a3b8;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* ==========================
+           RESOURCES
+        ========================== */
+
+        .resource-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .resource {
+
+            padding: 25px;
+
+            background:
+                rgba(15, 23, 42, 0.7);
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 16px;
+        }
+
+
+        .resource h3 {
+
+            color: #f8fafc;
+
+            margin-bottom: 8px;
+        }
+
+
+        .resource p {
+
+            color: #94a3b8;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .resource a {
+
+            color: #38bdf8;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+
+        .resource a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* ==========================
+           CONTACT
+        ========================== */
+
+        .contact {
+
+            text-align: center;
+
+            padding: 50px 30px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(14, 116, 144, 0.15),
+                    rgba(79, 70, 229, 0.15)
+                );
+
+            border:
+                1px solid #1e293b;
+        }
+
+
+        .contact h2 {
+
+            font-size: 34px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .contact p {
+
+            color: #94a3b8;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* ==========================
+           FOOTER
+        ========================== */
+
+        footer {
+
+            padding: 30px 0;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            border-top:
+                1px solid #1e293b;
+        }
+
+
+        /* ==========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .nav-container {
+
+                flex-direction: column;
+
+                gap: 12px;
+
+                padding: 15px 0;
+            }
+
+
+            .nav-links {
+
+                gap: 14px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .cards,
+            .feature-grid,
+            .resource-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .hero {
+
+                min-height: auto;
+
+                padding: 70px 0;
+            }
+
+
+            .hero h1 {
+
+                font-size: 46px;
+            }
+
+
+            section {
+
+                padding: 65px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     NAVIGATION
+===================================== -->
+
+<nav>
+
+    <div class="container nav-container">
+
+        <div class="logo">
+            Library Management System
+        </div>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#overview">
+                    Overview
+                </a>
+            </li>
+
+            <li>
+                <a href="#features">
+                    Features
+                </a>
+            </li>
+
+            <li>
+                <a href="#technology">
+                    Technology
+                </a>
+            </li>
+
+            <li>
+                <a href="#screenshots">
+                    Screenshots
+                </a>
+            </li>
+
+            <li>
+                <a href="#resources">
+                    Resources
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================
+     HERO
+===================================== -->
+
+<header class="hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <span class="tag">
+                DJANGO WEB APPLICATION
+            </span>
+
+
+            <h1>
+                Library<br>
+                Management System
+            </h1>
+
+
+            <h2>
+                A Digital Platform for Managing Library Operations
+            </h2>
+
+
+            <p>
+
+                A web-based Library Management System developed using
+                Django and Python with MySQL database integration.
+                The system helps administrators manage books, students,
+                borrowing, returns and fines while providing students
+                with an easy-to-use interface.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#features"
+                    class="btn btn-primary"
+                >
+                    Explore Project
+                </a>
+
+
+                <a
+                    href="https://github.com/kvenkatamanasa/Library-Management-System"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-secondary"
+                >
+                    View GitHub
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================
+     OVERVIEW
+===================================== -->
+
+<section id="overview">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>
+                Project Overview
+            </span>
+
+            <h2>
+                Library Operations Made Simple
+            </h2>
+
+            <p>
+                The system digitizes common library activities and
+                reduces manual work through a centralized web application.
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Book Management
+                </h3>
+
+                <p>
+                    Add, update, search and manage books available
+                    in the library.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    👨‍🎓
+                </div>
+
+                <h3>
+                    Student Management
+                </h3>
+
+                <p>
+                    Manage student information and library activity.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📖
+                </div>
+
+                <h3>
+                    Book Booking
+                </h3>
+
+                <p>
+                    Students can book available books through
+                    the system.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Fine Management
+                </h3>
+
+                <p>
+                    Track overdue books and calculate applicable
+                    library fines.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     ABOUT
+===================================== -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>
+                About
+            </span>
+
+            <h2>
+                Why This Project?
+            </h2>
+
+        </div>
+
+
+        <div class="about">
+
+            <p>
+
+                Traditional library management can involve considerable
+                manual effort when maintaining book records, student
+                information, issue records and fines.
+
+            </p>
+
+
+            <p>
+
+                This project provides a centralized
+                <span class="highlight">
+                    web-based library management system
+                </span>
+                that makes these operations easier to manage.
+
+            </p>
+
+
+            <p>
+
+                The application follows a
+                <span class="highlight">
+                    Django Model-View-Template architecture
+                </span>
+                and uses a relational database for storing application data.
+
+            </p>
+
+
+            <p>
+
+                The system is designed as an academic project to demonstrate
+                practical skills in web development, database management,
+                authentication and CRUD operations.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     FEATURES
+===================================== -->
+
+<section id="features">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>
+                Features
+            </span>
+
+            <h2>
+                Core System Features
+            </h2>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature">
+
+                <h3>
+                    🔐 User Authentication
+                </h3>
+
+                <p>
+                    Secure login and user management functionality
+                    for accessing the library system.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    👨‍💼 Admin Interface
+                </h3>
+
+                <p>
+                    Administrators can manage books, students,
+                    transactions and library records.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    📚 Book Management
+                </h3>
+
+                <p>
+                    Create, update, delete and search library book
+                    records.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    👨‍🎓 Student Interface
+                </h3>
+
+                <p>
+                    Students can access available books and interact
+                    with the library system.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    📕 Book Issue & Return
+                </h3>
+
+                <p>
+                    Manage book issue and return operations through
+                    the application.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    💵 Fine Calculation
+                </h3>
+
+                <p>
+                    Track overdue books and calculate applicable fines
+                    based on the project's configured rules.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    🔎 Search
+                </h3>
+
+                <p>
+                    Search and find books efficiently from the library
+                    collection.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    🗄️ Database Management
+                </h3>
+
+                <p>
+                    Store and retrieve library data using a relational
+                    database.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     TECHNOLOGY
+===================================== -->
+
+<section id="technology">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>
+                Technology Stack
+            </span>
+
+            <h2>
+                Tools & Technologies
+            </h2>
+
+        </div>
+
+
+        <div class="tech-list">
+
+            <span class="tech">
+                Python
+            </span>
+
+            <span class="tech">
+                Django
+            </span>
+
+            <span class="tech">
+                MySQL
+            </span>
+
+            <span class="tech">
+                PyMySQL
+            </span>
+
+            <span class="tech">
+                HTML
+            </span>
+
+            <span class="tech">
+                CSS
+            </span>
+
+            <span class="tech">
+                Bootstrap
+            </span>
+
+            <span class="tech">
+                JavaScript
+            </span>
+
+            <span class="tech">
+                Git
+            </span>
+
+            <span class="tech">
+                GitHub
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     WORKFLOW
+===================================== -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>
+                System Workflow
+            </span>
+
+            <h2>
+                How the System Works
+            </h2>
+
+        </div>
+
+
+        <div class="workflow">
+
+            <div class="step">
+                User Login
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="step">
+                Browse Books
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="step">
+                Book Request
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="step">
+                Admin Processing
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="step">
+                Book Issue
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="step">
+                Return
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+            <div class="step">
+                Fine Calculation
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     SCREENSHOTS
+===================================== -->
+
+<section id="screenshots">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>
+                Screenshots
+            </span>
+
+            <h2>
+                Project Screenshots
+            </h2>
+
+            <p>
+                View the screenshots stored in the GitHub repository.
+            </p>
+
+        </div>
+
+
+        <div class="screenshot-box">
+
+            <p>
+                Click below to open the complete screenshots folder
+                containing the application's interface.
+            </p>
+
+
+            <a
+                href="https://github.com/kvenkatamanasa/Library-Management-System/tree/main/screenshots"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary"
+            >
+                View All Screenshots →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     RESOURCES
+===================================== -->
+
+<section id="resources">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>
+                Resources
+            </span>
+
+            <h2>
+                Project Files
+            </h2>
+
+        </div>
+
+
+        <div class="resource-grid">
+
+
+            <div class="resource">
+
+                <h3>
+                    💻 GitHub Repository
+                </h3>
+
+                <p>
+                    View the complete source code and project files.
+                </p>
+
+                <a
+                    href="https://github.com/kvenkatamanasa/Library-Management-System"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Open GitHub →
+                </a>
+
+            </div>
+
+
+            <div class="resource">
+
+                <h3>
+                    📸 Screenshots
+                </h3>
+
+                <p>
+                    View the application's interface and project screenshots.
+                </p>
+
+                <a
+                    href="https://github.com/kvenkatamanasa/Library-Management-System/tree/main/screenshots"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View Screenshots →
+                </a>
+
+            </div>
+
+
+            <div class="resource">
+
+                <h3>
+                    📖 README
+                </h3>
+
+                <p>
+                    Read the project description, setup information
+                    and implementation details.
+                </p>
+
+                <a
+                    href="https://github.com/kvenkatamanasa/Library-Management-System/blob/main/README.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Read README →
+                </a>
+
+            </div>
+
+
+            <div class="resource">
+
+                <h3>
+                    🐍 Django Source
+                </h3>
+
+                <p>
+                    Explore the Django application source code.
+                </p>
+
+                <a
+                    href="https://github.com/kvenkatamanasa/Library-Management-System/tree/main/librarymanagement"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View Django Code →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     CONTACT
+===================================== -->
+
+<section>
+
+    <div class="container">
+
+        <div class="contact">
+
+            <h2>
+                Let's Connect
+            </h2>
+
+            <p>
+                Interested in Python, Django, Data Analytics,
+                Power BI and software development projects?
+            </p>
+
+
+            <div class="hero-buttons"
+                 style="justify-content:center;">
+
+                <a
+                    href="https://github.com/kvenkatamanasa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-primary"
+                >
+                    GitHub Profile
+                </a>
+
+
+                <a
+                    href="https://www.linkedin.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-secondary"
+                >
+                    LinkedIn
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer>
+
+    <div class="container">
+
+        © 2026 Kammineni Venkata Manasa
+
+        <br>
+
+        Library Management System
+        |
+        Django • Python • MySQL • Bootstrap
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>
